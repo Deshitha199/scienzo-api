@@ -37,6 +37,7 @@ jobs:
 
       - name: Run tests
         run: npm test
+        # The --passWithNoTests flag is now included in package.json
 
   deploy:
     name: Deploy to Firebase
