@@ -1,11 +1,11 @@
 // The Cloud Functions for Firebase SDK to create Cloud Functions and triggers.
-const { logger } = require("firebase-functions");
-const { onRequest } = require("firebase-functions/v2/https");
-const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+const {logger} = require("firebase-functions");
+const {onRequest} = require("firebase-functions/v2/https");
+const {onDocumentCreated} = require("firebase-functions/v2/firestore");
 
 // The Firebase Admin SDK to access Firestore.
-const { initializeApp } = require("firebase-admin/app");
-const { getFirestore } = require("firebase-admin/firestore");
+const {initializeApp} = require("firebase-admin/app");
+const {getFirestore} = require("firebase-admin/firestore");
 
 initializeApp();
 
@@ -16,10 +16,10 @@ exports.addmessage = onRequest(async (req, res) => {
   const original = req.query.text;
   // Push the new message into Firestore using the Firebase Admin SDK.
   const writeResult = await getFirestore()
-    .collection("messages")
-    .add({ original: original });
+      .collection("messages")
+      .add({original: original});
   // Send back a message that we've successfully written the message
-  res.json({ result: `Message with ID: ${writeResult.id} added.` });
+  res.json({result: `Message with ID: ${writeResult.id} added.`});
 });
 
 // Listens for new messages added to /messages/:documentId/original
@@ -38,5 +38,5 @@ exports.makeuppercase = onDocumentCreated("/messages/{documentId}", (event) => {
   // asynchronous tasks inside a function
   // such as writing to Firestore.
   // Setting an 'uppercase' field in Firestore document returns a Promise.
-  return event.data.ref.set({ uppercase }, { merge: true });
+  return event.data.ref.set({uppercase}, {merge: true});
 });
